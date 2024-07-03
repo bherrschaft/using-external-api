@@ -20,7 +20,7 @@ document.getElementById('searchForm').addEventListener('submit', async (e) => {
     // Check if the response contains the expected data structure.
     if (data && data.data && Array.isArray(data.data.list)) {
       // Initialize a string to hold the HTML for the search results.
-      let resultHTML = '<h2>Airbnb Listings</h2>';
+      let resultHTML = '<h2 class="col-12">Airbnb Listings</h2>';
       
       // Loop through each listing in the response data.
       data.data.list.forEach((listingWrapper, index) => {
@@ -31,12 +31,16 @@ document.getElementById('searchForm').addEventListener('submit', async (e) => {
         
         // Add the listing information to the HTML string.
         resultHTML += `
-          <div>
-            <h3>${listing.title || 'No Title Provided'}</h3>
-            <p>${listing.city || 'No City Provided'}</p>
-            <p>${pricing.price ? pricing.price + ' ' + pricing.qualifier : 'No Price Provided'}</p>
-            <img src="${imageUrl}" alt="Listing Image">
-            <a href="https://www.airbnb.com/rooms/${listing.id}" target="_blank">View on Airbnb</a>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="${imageUrl}" class="card-img-top" alt="Listing Image">
+              <div class="card-body">
+                <h5 class="card-title">${listing.title || 'No Title Provided'}</h5>
+                <p class="card-text">${listing.city || 'No City Provided'}</p>
+                <p class="card-text">${pricing.price ? pricing.price + ' ' + pricing.qualifier : 'No Price Provided'}</p>
+                <a href="https://www.airbnb.com/rooms/${listing.id}" class="btn btn-primary" target="_blank">View on Airbnb</a>
+              </div>
+            </div>
           </div>
         `;
       });
@@ -45,7 +49,7 @@ document.getElementById('searchForm').addEventListener('submit', async (e) => {
       document.getElementById('searchResult').innerHTML = resultHTML;
     } else {
       // Display a message if no listings were found.
-      document.getElementById('searchResult').innerHTML = '<p>No listings found.</p>';
+      document.getElementById('searchResult').innerHTML = '<p class="col-12">No listings found.</p>';
     }
   });
   

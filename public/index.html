@@ -4,16 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Airbnb Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-  <h1>Airbnb Dashboard</h1>
-  <form id="searchForm" action="/search" method="POST">
-    <label for="city">Enter city name:</label>
-    <input type="text" id="city" name="city" required>
-    <button type="submit">Search</button>
-  </form>
-  <div id="searchResult"></div>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Airbnb Dashboard</h1>
+    <form id="searchForm" class="form-inline justify-content-center mb-4">
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="city" class="sr-only">Enter city name</label>
+        <input type="text" class="form-control" id="city" placeholder="Enter city name">
+      </div>
+      <button type="submit" class="btn btn-primary mb-2">Search</button>
+    </form>
+    <div id="searchResult" class="row">
+      <!-- Search results will be inserted here -->
+    </div>
+  </div>
   <script src="scripts/main.js"></script>
 </body>
 </html>
