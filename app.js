@@ -49,11 +49,25 @@ app.post('/search', async (req, res) => {
 
   try {
     const response = await axios.request(options);
-    console.log("API Response:", response.data);
-    // Make the request to the external API using Axios and log the response data.
+    // Log the full API response for debugging.
+    console.log("Full API Response:", response.data);
 
-    res.send(response.data);
-    // Send the API response back to the client.
+    // Parse the API response to extract only the relevant data.
+    const parsedData = response.data.data.list.map(listingWrapper => {
+      const listing = listingWrapper.listing;
+      const pricing = listingWrapper.pricingQuote.structuredStayDisplayPrice.primaryLine;
+      const imageUrl = listing.contextualPictures.length > 0 ? listing.contextualPictures[0].picture : '';
+      return {
+        title: listing.title || 'No Title Provided',
+        city: listing.city || 'No City Provided',
+        price: pricing.price ? pricing.price + ' ' + pricing.qualifier : 'No Price Provided',
+        imageUrl: imageUrl,
+        link: `https://www.airbnb.com/rooms/${listing.id}`
+      };
+    });
+
+    // Send the parsed data to the client.
+    res.send(parsedData);
   } catch (error) {
     console.error(error);
     // Log any errors that occur during the API request.
